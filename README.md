@@ -4,7 +4,7 @@ A Chrome extension that automatically detects and replaces passwords and IP addr
 
 ## 🎥 Demo Video
 
-https://github.com/user-attachments/assets/video.mp4
+https://github.com/mortezapiri/SPG/assets/video.mp4
 
 *Watch SPG automatically detect and replace sensitive data when pasting!*
 
@@ -38,31 +38,25 @@ https://github.com/user-attachments/assets/video.mp4
 
 1. **Clone or download this repository**
    ```bash
-   git clone <repository-url>
-   cd chrome-extention
+   git clone https://github.com/mortezapiri/SPG.git
+   cd SPG
    ```
 
-2. **Create proper icons** (optional but recommended)
-   - Open `generate_icons.html` in your browser
-   - Click "Generate All Icons"
-   - Save the three downloaded PNG files to the `icons/` folder
-   - Or use your own custom 16x16, 48x48, and 128x128 PNG icons
-
-3. **Open Chrome Extensions page**
+2. **Open Chrome Extensions page**
    - Navigate to `chrome://extensions/`
    - Or click the menu (⋮) → More Tools → Extensions
 
-4. **Enable Developer Mode**
+3. **Enable Developer Mode**
    - Toggle the "Developer mode" switch in the top right corner
 
-5. **Load the extension**
+4. **Load the extension**
    - Click "Load unpacked"
-   - Select the `chrome-extention` folder
+   - Select the `SPG` folder
    - The extension should now appear in your extensions list
 
-6. **Pin the extension** (optional)
+5. **Pin the extension** (optional)
    - Click the puzzle piece icon in Chrome toolbar
-   - Find "Secure Paste Guard"
+   - Find "SPG - Secure Paste Guard"
    - Click the pin icon to keep it visible
 
 ### Method 2: Pack and Install as CRX
