@@ -4,7 +4,7 @@ A Chrome extension that automatically detects and replaces passwords and IP addr
 
 ## 🎥 Demo
 
-![SPG Demo](video.gif)
+![SPG Demo](video.mp4)
 
 *Watch SPG automatically detect and replace sensitive data when pasting!*
 
