@@ -2,9 +2,9 @@
 
 A Chrome extension that automatically detects and replaces passwords and IP addresses with mock data when pasting from clipboard, helping prevent accidental exposure of sensitive information.
 
-## 🎥 Demo Video
+## 🎥 Demo
 
-https://github.com/mortezapiri/SPG/assets/video.mp4
+![SPG Demo](video.gif)
 
 *Watch SPG automatically detect and replace sensitive data when pasting!*
 
