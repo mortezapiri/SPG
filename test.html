@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Paste Guard - Test Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .test-data {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #667eea;
+    }
+
+    .test-data h3 {
+      font-size: 14px;
+      color: #667eea;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .test-item {
+      background: white;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 8px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      border: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .test-item:hover {
+      border-color: #667eea;
+      background: #f0f3ff;
+      transform: translateX(4px);
+    }
+
+    .test-item::after {
+      content: '📋 Click to copy';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: #999;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .test-item:hover::after {
+      color: #667eea;
+    }
+
+    .input-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .instructions {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .instructions h3 {
+      color: #856404;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .instructions ol {
+      margin-left: 20px;
+      color: #856404;
+      line-height: 1.8;
+    }
+
+    .instructions li {
+      margin-bottom: 8px;
+    }
+
+    .success-note {
+      background: #d4edda;
+      border: 1px solid #28a745;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      color: #155724;
+      font-size: 14px;
+    }
+
+    .success-note strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    code {
+      background: #f8f9fa;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #d63384;
+    }
+
+    .copy-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #667eea;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 999999;
+      font-size: 14px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛡️ Secure Paste Guard Test Page</h1>
+    <p class="subtitle">Use this page to test the Chrome extension</p>
+
+    <div class="instructions">
+      <h3>📝 How to Test:</h3>
+      <ol>
+        <li>Make sure the extension is installed and enabled</li>
+        <li>Click on any test data below to copy it to clipboard</li>
+        <li>Paste into one of the input fields below</li>
+        <li>The sensitive data should be automatically replaced with mock data!</li>
+        <li>Check the browser console (F12) for detection logs</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2>🔒 Test Passwords</h2>
+      <div class="test-data">
+        <h3>Click to copy these test passwords:</h3>
+        <div class="test-item" data-copy="MySecure@Pass123">MySecure@Pass123</div>
+        <div class="test-item" data-copy="StrongP@ssw0rd">StrongP@ssw0rd</div>
+        <div class="test-item" data-copy="Test#1234Pwd">Test#1234Pwd</div>
+        <div class="test-item" data-copy="Admin$ecure99">Admin$ecure99</div>
+        <div class="test-item" data-copy="HelloWorld123!">HelloWorld123!</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🌐 Test IP Addresses</h2>
+      <div class="test-data">
+        <h3>IPv4 Addresses:</h3>
+        <div class="test-item" data-copy="192.168.1.1">192.168.1.1</div>
+        <div class="test-item" data-copy="10.0.0.5">10.0.0.5</div>
+        <div class="test-item" data-copy="172.16.254.1">172.16.254.1</div>
+        
+        <h3 style="margin-top: 15px;">IPv4 with Ports:</h3>
+        <div class="test-item" data-copy="192.168.1.1:8080">192.168.1.1:8080</div>
+        <div class="test-item" data-copy="10.0.0.1:3000">10.0.0.1:3000</div>
+        <div class="test-item" data-copy="172.16.0.1:443">172.16.0.1:443</div>
+        
+        <h3 style="margin-top: 15px;">IPv6 Addresses:</h3>
+        <div class="test-item" data-copy="2001:0db8:85a3:0000:0000:8a2e:0370:7334">2001:0db8:85a3:0000:0000:8a2e:0370:7334</div>
+        <div class="test-item" data-copy="fe80:0000:0000:0000:0204:61ff:fe9d:f156">fe80:0000:0000:0000:0204:61ff:fe9d:f156</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✏️ Paste Test Fields</h2>
+      <div class="input-section">
+        <div class="input-group">
+          <label for="text-input">Text Input (try pasting a password or IP):</label>
+          <input type="text" id="text-input" placeholder="Paste here...">
+        </div>
+
+        <div class="input-group">
+          <label for="password-input">Password Input:</label>
+          <input type="password" id="password-input" placeholder="Paste here...">
+        </div>
+
+        <div class="input-group">
+          <label for="textarea">Textarea:</label>
+          <textarea id="textarea" placeholder="Paste here..."></textarea>
+        </div>
+      </div>
+
+      <div class="success-note">
+        <strong>✅ What should happen:</strong>
+        When you paste a password or IP address, you'll see:
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>A green notification in the top-right corner</li>
+          <li>The pasted text replaced with mock data</li>
+          <li>Console logs showing the detection</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔍 Troubleshooting</h2>
+      <div class="test-data" style="border-left-color: #ff9800;">
+        <h3>If it's not working:</h3>
+        <ol style="margin-left: 20px; line-height: 1.8;">
+          <li>Open Chrome DevTools (F12) and check the Console tab</li>
+          <li>Look for <code>[Secure Paste Guard] Extension initialized</code></li>
+          <li>Go to <code>chrome://extensions/</code> and reload the extension</li>
+          <li>Make sure the extension is enabled</li>
+          <li>Try refreshing this page (F5)</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Copy to clipboard functionality
+    document.querySelectorAll('.test-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const textToCopy = this.getAttribute('data-copy');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          showCopyNotification(`Copied: ${textToCopy}`);
+        });
+      });
+    });
+
+    function showCopyNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'copy-notification';
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+
+    // Log paste events for debugging
+    document.addEventListener('paste', function(e) {
+      console.log('Paste event detected on:', e.target.tagName, e.target.type);
+    }, true);
+  </script>
+</body>
+</html>
+
